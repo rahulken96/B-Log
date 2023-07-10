@@ -1,4 +1,14 @@
 <?php
+/* Cek session dulu */
+// if (!isset($_SESSION["login"])) {
+//   echo "<script>alert('Harap Masuk Terlebih Dahulu!'); document.location.href = 'login.php';</script>";
+//   exit;
+//   // header("location: index.php");
+// }else {
+//   echo "<script>alert('Hhaiwhdoiwd!!!!!'); document.location.href = 'login.php';</script>";
+// }
+/* akhir cek */
+
 require 'functions.php';
 if (isset($_POST["tambah"])) {
 
@@ -31,8 +41,7 @@ if (isset($_POST["tambah"])) {
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         </ul>
         <form class="d-flex" role="search">
-          <!-- <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"> -->
-          <a href="index.php" class="btn btn-light text-black">Halaman Utama</a>
+          <a href="login.php" class="btn btn-danger" onclick="logout()"><i class="bi bi-box-arrow-left"></i> Keluar</a>
         </form>
       </div>
     </div>
@@ -53,7 +62,9 @@ if (isset($_POST["tambah"])) {
         <label for="tipe" class="form-label">Tipe Blog</label>
         <select id="tipe" name="tipe" class="form-select" required>
           <option value="" selected disabled>-- Pilih --</option>
+          <option value="Kesehatan">Kesehatan</option>
           <option value="Lingkungan">Lingkungan</option>
+          <option value="Bisnis">Bisnis</option>
           <option value="Teknologi">Teknologi</option>
         </select>
       </div>
@@ -81,6 +92,12 @@ if (isset($_POST["tambah"])) {
   </div>
 
   <script src="assets/bootstrap.bundle.min.js"></script>
+  <script>
+    function logout(){
+      alert('Anda Telah Keluar !');
+      document.location.href='login.php';
+    }
+  </script>
 </body>
 
 </html>

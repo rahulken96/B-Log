@@ -7,11 +7,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>B-Log | VSGA Project</title>
 
-  <link rel="stylesheet" href="assets/bootstrap.min.css">
+  <link rel="stylesheet" href="assets/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
 </head>
 
 <body>
+  <!-- Navbar -->
   <nav class="navbar navbar-expand-lg navbar-light bg-info">
     <div class="container">
       <a class="navbar-brand" href="index.php"><i class="bi bi-newspaper" style="font-size: larger;"></i></a>
@@ -27,14 +28,17 @@
             <a class="nav-link" href="kategori.php">Kategori</a>
           </li>
         </ul>
-        <form class="d-flex" role="search">
-          <!-- <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"> -->
-          <a href="tambah-blog.php" class="btn btn-outline-light text-black">Tambah Blog</a>
-        </form>
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <a href="login.php" class="btn btn-outline-light text-black"><i class="bi bi-box-arrow-in-right"></i> Masuk</a>
+          </li>
+        </ul>
       </div>
     </div>
   </nav>
+  <!-- Navbar -->
 
+  <!-- Content -->
   <div class="container mt-4">
     <h1>Halaman Blog</h1>
 
@@ -118,7 +122,9 @@
       </div>
     </div>
   </div>
+  <!-- Content -->
 
+  <!-- Footer -->
   <div class="mt-4">
     <footer class="text-black text-center text-lg-start">
       <div class="p-4" style="background-color: rgba(13,202,240);">
@@ -163,8 +169,9 @@
       </div>
     </footer>
   </div>
+  <!-- Footer -->
 
-  <script src="assets/bootstrap.bundle.min.js"></script>
+  <script src="assets/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>
