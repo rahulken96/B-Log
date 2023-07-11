@@ -1,6 +1,12 @@
 <?php
 $conn = mysqli_connect('localhost', 'root', '', 'b_log_project');
 
+function dd($req)
+{
+  var_dump($req);
+  die;
+}
+
 function query($query)
 {
   global $conn;
@@ -23,12 +29,53 @@ function tambah($data)
   $sub    = htmlspecialchars($data["subJudul"]);
   $tipe   = htmlspecialchars($data["tipe"]);
   $desk   = htmlspecialchars($data["desk"]);
-  $gambar = $_FILES["gambar"]["name"];
+
+  /* Proses Upload Gambar */
+  $gambar = upload();
+  if (!$gambar) {
+    return false;
+  }
+  /* Akhir Proses Upload Gambar */
 
   $query = "INSERT INTO blog VALUES ('', '$judul', '$sub', '$tipe', '$desk', '$gambar')";
 
   mysqli_query($conn, $query);
   return mysqli_affected_rows($conn);
+}
+
+function upload()
+{
+  $namaFile = $_FILES["gambar"]["name"];
+  $ukuranFile = $_FILES["gambar"]["size"];
+  $error = $_FILES["gambar"]["error"];
+  $tmpName = $_FILES["gambar"]["tmp_name"];
+
+  /* cek apakah ada gambar diupload atau tidak */
+  if ($error === 4) {
+    echo "<script>alert('Gambar wajib diupload !'); document.location.href='tambah-blog.php';</script>";
+    return false;
+  }
+
+  /* cek format gampar yang diupload */
+  $ekstensiGambar = ['jpg', 'jpeg', 'png']; // contoh beberapa ekstensi gambar yang valid
+  $formatFile = explode('.', $namaFile);
+  $formatFile = strtolower(end($formatFile)); // mengambil format file dari suatu gambar yang sesuai dengan ekstensi gambar yang valid
+
+  if (!in_array($formatFile, $ekstensiGambar)) {
+    echo "<script>alert('Yang diupload bukan gambar !'); document.location.href='tambah-blog.php';</script>";
+    return false;
+  }
+
+  /* cek ukuran gambar yang diupload */
+  if ($ukuranFile > 1000000) {
+    echo "<script>alert('Gambar yang diupload terlalu besar !'); document.location.href='tambah-blog.php';</script>";
+    return false;
+  }
+
+  /* lolos pengecekan, gambar siap diupload */
+  $encNamaFile = uniqid() . '.' . $formatFile; // ubah nama file menjadi nama acak
+  move_uploaded_file($tmpName, 'upload/' . $encNamaFile);
+  return $encNamaFile;
 }
 
 function login($data)
@@ -46,19 +93,16 @@ function login($data)
   if (mysqli_num_rows($login) === 1) {
 
     /* Cek Password */
-    $encPW = mysqli_fetch_assoc($login); /* Ngambil Data*/
     // password_verify($pw, $encPW["password"])
+    $encPW = mysqli_fetch_assoc($login); // Ngambil Data
     if ($pw == $encPW["password"]) {
 
       /* Buat Session baru */
       $_SESSION["login"] = true;
 
       echo "<script>alert('Selamat Datang ^_^'); document.location.href='tambah-blog.php';</script>";
-      // header('location: tambah-blog.php');
-      // exit;
     }
     echo "<script> let alertG = document.getElementById('gagal'); alertG.style.display = 'block';</script>";
   }
-
   echo "<script> let alertG = document.getElementById('gagal'); alertG.style.display = 'block';</script>";
 }
