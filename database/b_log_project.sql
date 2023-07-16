@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 25 Jun 2023 pada 07.09
+-- Waktu pembuatan: 16 Jul 2023 pada 08.58
 -- Versi server: 10.4.27-MariaDB
 -- Versi PHP: 8.0.25
 
@@ -41,7 +41,31 @@ CREATE TABLE `blog` (
 --
 
 INSERT INTO `blog` (`id`, `judul`, `sub_judul`, `tipe`, `deskripsi`, `gambar`) VALUES
-(1, 'Tes', 'Tes sub', 'Lingkungan', 'Deskripsi', 'pohon.jpg');
+(1, 'judul 1', 'ke 1', 'Kesehatan', 'judul ke 1', '64b3825688d67.png'),
+(2, 'judul 2', 'ke 2', 'Lingkungan', '&lt;p&gt;judul&amp;nbsp;&lt;strong&gt;ke-2&lt;/strong&gt;&lt;/p&gt;', '64b384cda7894.png'),
+(3, 'Judul 3', 'ke - 3', 'Bisnis', '&lt;p&gt;Ini adalah&amp;nbsp;&lt;strong&gt;judul&amp;nbsp;&lt;em&gt;ke-3&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;', '64b38d6c91586.png');
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `users`
+--
+
+CREATE TABLE `users` (
+  `id` int(11) NOT NULL,
+  `nama` varchar(255) NOT NULL,
+  `email` varchar(100) NOT NULL,
+  `noHP` varchar(25) NOT NULL,
+  `username` varchar(50) NOT NULL,
+  `password` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data untuk tabel `users`
+--
+
+INSERT INTO `users` (`id`, `nama`, `email`, `noHP`, `username`, `password`) VALUES
+(1, 'Rahul', 'rahul@gmail.com', '081234567898', 'rahul19', 'qwe123');
 
 --
 -- Indexes for dumped tables
@@ -54,6 +78,12 @@ ALTER TABLE `blog`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indeks untuk tabel `users`
+--
+ALTER TABLE `users`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- AUTO_INCREMENT untuk tabel yang dibuang
 --
 
@@ -61,6 +91,12 @@ ALTER TABLE `blog`
 -- AUTO_INCREMENT untuk tabel `blog`
 --
 ALTER TABLE `blog`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT untuk tabel `users`
+--
+ALTER TABLE `users`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 COMMIT;
 
