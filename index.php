@@ -1,3 +1,8 @@
+<?php
+require 'functions.php';
+$item = query("SELECT * FROM blog");
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -57,70 +62,25 @@
       </div>
     </div>
 
-    <div class="row mb-4 pb-4">
-      <div class="col">
-        <h2><a href="http://" class="text-decoration-none">Blog</a></h2>
+    <?php foreach ($item as $key => $value) : ?>
+      <div class="row mb-4 pb-4">
+        <div class="col">
+          <h2><a href="http://" class="text-decoration-none"><?= ucfirst($value['judul']) ?></a></h2>
+          <img src="upload/<?= $value['gambar'] ?>" alt="gambar" style="width: 10%;">
 
-        <p>
-          Ditulis oleh <a href="http://" class="text-decoration-none">Saya</a>
-        </p>
+          <p style="font-weight: bold;">
+            <?= $value['tipe'] ?> | <?= ucfirst($value['sub_judul']) ?></a>
+          </p>
 
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam veniam
-          vero, natus laborum atque quod dolores eum excepturi nulla eos?
-        </p>
+          <p>
+            <?= htmlspecialchars_decode($value['deskripsi']) ?>
+          </p>
 
-        <a href="http://">Lebih banyak...</a>
+          <a href="http://">Lebih banyak...</a>
+        </div>
       </div>
-      <div class="col">
-        <h2><a href="http://" class="text-decoration-none">Blog</a></h2>
-
-        <p>
-          Ditulis oleh <a href="http://" class="text-decoration-none">Saya</a>
-        </p>
-
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam veniam
-          vero, natus laborum atque quod dolores eum excepturi nulla eos?
-        </p>
-
-        <a href="http://">Lebih banyak...</a>
-      </div>
-    </div>
-
-    <br />
-
-    <p class="border-bottom"></p>
-    <div class="row mb-4 pb-4">
-      <div class="col">
-        <h2><a href="http://" class="text-decoration-none">Blog</a></h2>
-
-        <p>
-          Ditulis oleh <a href="http://" class="text-decoration-none">Saya</a>
-        </p>
-
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam veniam
-          vero, natus laborum atque quod dolores eum excepturi nulla eos?
-        </p>
-
-        <a href="http://">Lebih banyak...</a>
-      </div>
-      <div class="col">
-        <h2><a href="http://" class="text-decoration-none">Blog</a></h2>
-
-        <p>
-          Ditulis oleh <a href="http://" class="text-decoration-none">Saya</a>
-        </p>
-
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam veniam
-          vero, natus laborum atque quod dolores eum excepturi nulla eos?
-        </p>
-
-        <a href="http://">Lebih banyak...</a>
-      </div>
-    </div>
+      <p class="border-bottom"></p>
+    <?php endforeach ?>
   </div>
   <!-- Content -->
 

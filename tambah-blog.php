@@ -29,7 +29,7 @@ if (isset($_POST["tambah"])) {
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Tambah B-Log | VSGA Project</title>
 
-  <link rel="stylesheet" href="assets/bootstrap.min.css" />
+  <link rel="stylesheet" href="assets/css/bootstrap.min.css" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
 </head>
 
@@ -92,10 +92,23 @@ if (isset($_POST["tambah"])) {
   </div>
 
   <script src="assets/bootstrap.bundle.min.js"></script>
+  <script src="assets/js/tinymce.min.js" referrerpolicy="origin"></script>
   <script>
-    function logout(){
+    tinymce.init({
+      selector: 'textarea#desk',
+      content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:16px }',
+      setup: function(editor) {
+        editor.on('change', function() {
+          editor.save();
+        });
+      }
+    });
+  </script>
+
+  <script>
+    function logout() {
       alert('Anda Telah Keluar !');
-      document.location.href='login.php';
+      document.location.href = 'login.php';
     }
   </script>
 </body>
