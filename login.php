@@ -1,7 +1,9 @@
 <?php
-// session_start();
+require 'functions/functions.php';
+if (isset($_SESSION['login'])) {
+  echo "<script>alert('Anda telah masuk !'); history.back();</script>";
+}
 
-require 'functions.php';
 if (isset($_POST["submit"])) {
   login($_POST);
 }

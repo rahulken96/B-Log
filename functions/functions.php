@@ -1,4 +1,5 @@
 <?php
+session_start();
 $conn = mysqli_connect('localhost', 'root', '', 'b_log_project');
 
 function dd($req)
@@ -24,6 +25,21 @@ function query($query)
 function tambah($data)
 {
   global $conn;
+
+  /* Tambah data register */
+  if (isset($data['daftar'])) {
+    $nama  = htmlspecialchars($data["nama"]);
+    $email    = htmlspecialchars($data["email"]);
+    $noHP   = htmlspecialchars($data["noHP"]);
+    $user   = htmlspecialchars($data["username"]);
+    $pw   = htmlspecialchars($data["password"]);
+
+    $query = "INSERT INTO users VALUES ('', '$nama', '$email', '$noHP', '$user', '$pw')";
+
+    mysqli_query($conn, $query);
+    return mysqli_affected_rows($conn);
+  }
+  /* Tambah data register */
 
   $judul  = htmlspecialchars($data["judul"]);
   $sub    = htmlspecialchars($data["subJudul"]);

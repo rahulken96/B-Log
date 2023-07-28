@@ -1,15 +1,13 @@
 <?php
+require 'functions/functions.php';
+
 /* Cek session dulu */
-// if (!isset($_SESSION["login"])) {
-//   echo "<script>alert('Harap Masuk Terlebih Dahulu!'); document.location.href = 'login.php';</script>";
-//   exit;
-//   // header("location: index.php");
-// }else {
-//   echo "<script>alert('Hhaiwhdoiwd!!!!!'); document.location.href = 'login.php';</script>";
-// }
+if (!isset($_SESSION["login"])) {
+  echo "<script>alert('Harap Masuk Terlebih Dahulu!'); document.location.href = 'login.php';</script>";
+  exit;
+}
 /* akhir cek */
 
-require 'functions.php';
 if (isset($_POST["tambah"])) {
 
   if (tambah($_POST) > 0) {

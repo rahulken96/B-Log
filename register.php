@@ -1,11 +1,10 @@
 <?php
-require 'functions.php';
-if (isset($_POST["tambah"])) {
-
+require 'functions/functions.php';
+if (isset($_POST["daftar"])) {
   if (tambah($_POST) > 0) {
-    echo "<script>alert('Data Berhasil Ditambahkan!'); document.location.href = 'index.php';</script>";
+    echo "<script>alert('Data anda berhasil didaftarkan, Silahkan Masuk !'); document.location.href = 'login.php';</script>";
   } else {
-    echo "<script>alert('Gagal Ditambahkan!')</script>";
+    echo "<script>alert('Anda Gagal Terdaftar!')</script>";
   }
 }
 ?>
@@ -18,7 +17,7 @@ if (isset($_POST["tambah"])) {
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Masuk B-Log | VSGA Project</title>
+  <title>Daftar B-Log | VSGA Project</title>
 
   <link href="assets/css/bootstrap.min.css" id="bootstrap-style" rel="stylesheet" type="text/css" />
   <link href="assets/css/app.min.css" id="app-style" rel="stylesheet" type="text/css" />
@@ -26,7 +25,7 @@ if (isset($_POST["tambah"])) {
 </head>
 
 <body>
-<!-- Start Pages -->
+  <!-- Start Pages -->
   <div class="account-pages my-5 pt-sm-5">
     <div class="container">
       <div class="row justify-content-center">
@@ -61,37 +60,37 @@ if (isset($_POST["tambah"])) {
                 </a>
               </div>
               <div class="p-2">
-                <form action="functions.php" class="form-horizontal">
+                <form action="" method="post" class="form-horizontal">
 
                   <div class="mb-3">
                     <label for="nama" class="form-label">Nama</label>
-                    <input type="text" class="form-control" id="nama" placeholder="Masukkan nama">
+                    <input type="text" class="form-control" id="nama" name="nama" placeholder="Masukkan nama">
                   </div>
 
                   <div class="mb-3">
                     <label for="email" class="form-label">E-mail</label>
-                    <input type="text" class="form-control" id="email" placeholder="Masukkan email">
+                    <input type="text" class="form-control" id="email" name="email" placeholder="Masukkan email">
                   </div>
 
                   <div class="mb-3">
                     <label for="nohp" class="form-label">No. HP</label>
-                    <input type="text" class="form-control" id="nohp" placeholder="Masukkan nohp">
+                    <input type="text" class="form-control" id="nohp" name="noHP" placeholder="Masukkan nohp">
                   </div>
 
                   <div class="mb-3">
                     <label for="username" class="form-label">Username</label>
-                    <input type="text" class="form-control" id="username" placeholder="Masukkan username">
+                    <input type="text" class="form-control" id="username" name="username" placeholder="Masukkan username">
                   </div>
 
                   <div class="mb-3">
                     <label class="form-label">Password</label>
                     <div class="input-group auth-pass-inputgroup">
-                      <input type="password" class="form-control" placeholder="Masukkan password" aria-label="Password" aria-describedby="password-addon">
+                      <input type="password" class="form-control" name="password" placeholder="Masukkan password" aria-label="Password" aria-describedby="password-addon">
                     </div>
                   </div>
 
                   <div class="mt-4 d-grid">
-                    <button class="btn btn-info waves-effect waves-light" type="submit">Masuk</button>
+                    <button class="btn btn-info waves-effect waves-light" type="submit" name="daftar">Daftar</button>
                   </div>
                 </form>
               </div>
@@ -101,7 +100,7 @@ if (isset($_POST["tambah"])) {
           <div class="mt-5 text-center">
 
             <div>
-            <p>Sudah Punya Akun ? <a href="login.php" class="fw-medium text-primary">
+              <p>Sudah Punya Akun ? <a href="login.php" class="fw-medium text-primary">
                   Masuk</a> </p>
               <p>©
                 <script>
@@ -118,4 +117,5 @@ if (isset($_POST["tambah"])) {
   <!-- end account-pages -->
 
 </body>
+
 </html>

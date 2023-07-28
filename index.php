@@ -1,6 +1,7 @@
 <?php
-require 'functions.php';
-$item = query("SELECT * FROM blog");
+require 'functions/functions.php';
+$last = query("SELECT * FROM blog ORDER BY id DESC LIMIT 1");
+$item = query("SELECT * FROM blog ORDER BY id DESC");
 ?>
 
 <!DOCTYPE html>
@@ -35,7 +36,11 @@ $item = query("SELECT * FROM blog");
         </ul>
         <ul class="navbar-nav ms-auto">
           <li class="nav-item">
-            <a href="login.php" class="btn btn-outline-light text-black"><i class="bi bi-box-arrow-in-right"></i> Masuk</a>
+            <?php if (isset($_SESSION['login'])) : ?>
+              <button type="submit" class="btn btn-danger" name="keluar" id="keluar"><i class="bi bi-box-arrow-left"></i> Keluar</button>
+            <?php else : ?>
+              <a href="login.php" class="btn btn-outline-light text-black"><i class="bi bi-box-arrow-in-right"></i> Masuk</a>
+            <?php endif ?>
           </li>
         </ul>
       </div>
@@ -48,39 +53,38 @@ $item = query("SELECT * FROM blog");
     <h1>Halaman Blog</h1>
 
     <div class="card mt-4 mb-4">
-      <img src="https://images.unsplash.com/photo-1461988320302-91bde64fc8e4?ixid=2yJhcHBfaWQiOjEyMDd9&fm=jpg&fit=crop&w=1080&q=80&fit=max" class="card-img-top mx-auto d-block" height="400px" alt="Headline" />
+      <img src="upload/<?= $last[0]['gambar'] ?>" class="card-img-top" style="height: 500px;" alt="Headline" />
       <div class="card-body text-center">
-        <h5 class="card-title">Card title</h5>
+        <h5 class="card-title"><?= $last[0]['judul'] ?></h5>
         <p class="card-text">
-          This is a wider card with supporting text below as a natural lead-in
-          to additional content. This content is a little bit longer.
+          <?= $last[0]['sub_judul'] ?></h5>
         </p>
         <p class="card-text">
-          <small class="text-body-secondary">Last updated 3 mins ago</small>
+          <small class="text-body-secondary"></small>
         </p>
-        <a href="#" class="btn btn-primary">Go somewhere</a>
+        <a href="#" class="btn btn-primary">Baca Selengkapnya..</a>
       </div>
     </div>
 
-    <?php foreach ($item as $key => $value) : ?>
+    <?php for ($i = 1; $i < count($item); $i++) : ?>
       <div class="row mb-4 pb-4">
         <div class="col">
-          <h2><a href="http://" class="text-decoration-none"><?= ucfirst($value['judul']) ?></a></h2>
-          <img src="upload/<?= $value['gambar'] ?>" alt="gambar" style="width: 10%;">
+          <h2><a href="http://" class="text-decoration-none"><?= ucfirst($item[$i]['judul']) ?></a></h2>
+          <img src="upload/<?= $item[$i]['gambar'] ?>" alt="gambar" style="width: 10%;">
 
           <p style="font-weight: bold;">
-            <?= $value['tipe'] ?> | <?= ucfirst($value['sub_judul']) ?></a>
+            <?= $item[$i]['tipe'] ?> | <?= ucfirst($item[$i]['sub_judul']) ?></a>
           </p>
 
           <p>
-            <?= htmlspecialchars_decode($value['deskripsi']) ?>
+            <?= htmlspecialchars_decode($item[$i]['deskripsi']) ?>
           </p>
 
           <a href="http://">Lebih banyak...</a>
         </div>
       </div>
       <p class="border-bottom"></p>
-    <?php endforeach ?>
+    <?php endfor ?>
   </div>
   <!-- Content -->
 
@@ -132,6 +136,15 @@ $item = query("SELECT * FROM blog");
   <!-- Footer -->
 
   <script src="assets/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/js/jquery-3.7.0.js"></script>
+  <script>
+    $("#keluar").on("click", function() {
+      var kelar = confirm('Yakin ingin keluar ?');
+      if (kelar) {
+        document.location.href = 'functions/logout.php';
+      }
+    });
+  </script>
 </body>
 
 </html>
