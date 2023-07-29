@@ -35,8 +35,7 @@ if (isset($_POST["daftar"])) {
               <div class="row">
                 <div class="col-7">
                   <div class="text-primary p-4">
-                    <h5 class="text-black">Selamat Datang !</h5>
-                    <p class="text-black">Silahkan Masuk ^_^</p>
+                    <h5 class="text-black">Daftar</h5>
                   </div>
                 </div>
               </div>

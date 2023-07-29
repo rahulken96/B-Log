@@ -37,6 +37,7 @@ $item = query("SELECT * FROM blog ORDER BY id DESC");
         <ul class="navbar-nav ms-auto">
           <li class="nav-item">
             <?php if (isset($_SESSION['login'])) : ?>
+              <a href="dashboard/index.php" class="btn btn-light text-black"><i class="bi bi-house-door-fill"></i> Dashboard</a>
               <button type="submit" class="btn btn-danger" name="keluar" id="keluar"><i class="bi bi-box-arrow-left"></i> Keluar</button>
             <?php else : ?>
               <a href="login.php" class="btn btn-outline-light text-black"><i class="bi bi-box-arrow-in-right"></i> Masuk</a>
@@ -53,17 +54,23 @@ $item = query("SELECT * FROM blog ORDER BY id DESC");
     <h1>Halaman Blog</h1>
 
     <div class="card mt-4 mb-4">
-      <img src="upload/<?= $last[0]['gambar'] ?>" class="card-img-top" style="height: 500px;" alt="Headline" />
-      <div class="card-body text-center">
-        <h5 class="card-title"><?= $last[0]['judul'] ?></h5>
-        <p class="card-text">
-          <?= $last[0]['sub_judul'] ?></h5>
-        </p>
-        <p class="card-text">
-          <small class="text-body-secondary"></small>
-        </p>
-        <a href="#" class="btn btn-primary">Baca Selengkapnya..</a>
-      </div>
+      <?php if (isset($last[0])) : ?>
+        <img src="upload/<?= $last[0]['gambar'] ?>" class="card-img-top" style="height: 500px;" alt="Headline" />
+        <div class="card-body text-center">
+          <h5 class="card-title"><?= $last[0]['judul'] ?></h5>
+          <p class="card-text">
+            <?= $last[0]['sub_judul'] ?></h5>
+          </p>
+          <p class="card-text">
+            <small class="text-body-secondary"></small>
+          </p>
+          <a href="#" class="btn btn-primary">Baca Selengkapnya..</a>
+        </div>
+      <?php else : ?>
+        <div class="card-body text-center mb-5">
+          <h1>Belum Ada Postingan :D</h1>
+        </div>
+      <?php endif ?>
     </div>
 
     <?php for ($i = 1; $i < count($item); $i++) : ?>

@@ -59,6 +59,45 @@ function tambah($data)
   return mysqli_affected_rows($conn);
 }
 
+function ubah($data)
+{
+  global $conn;
+
+  /* Tambah data register */
+  // if (isset($data['kategori'])) {
+  //   $nama  = htmlspecialchars($data["nama"]);
+  //   $email    = htmlspecialchars($data["email"]);
+  //   $noHP   = htmlspecialchars($data["noHP"]);
+  //   $user   = htmlspecialchars($data["username"]);
+  //   $pw   = htmlspecialchars($data["password"]);
+
+  //   $query = "INSERT INTO users VALUES ('', '$nama', '$email', '$noHP', '$user', '$pw')";
+
+  //   mysqli_query($conn, $query);
+  //   return mysqli_affected_rows($conn);
+  // }
+  /* Tambah data register */
+
+  $id       = $data['id'];
+  $judul    = htmlspecialchars($data["judul"]);
+  $sub      = htmlspecialchars($data["subJudul"]);
+  $tipe     = htmlspecialchars($data["tipe"]);
+  $desk     = htmlspecialchars($data["desk"]);
+  $desk     = htmlspecialchars($data["desk"]);
+  $gambar  = htmlspecialchars($data["gambarLama"]);
+
+  /* Proses Upload Gambar */
+  if ($_FILES['gambar']['error'] !== 4) {
+    $gambar = upload();
+  }
+  /* Akhir Proses Upload Gambar */
+
+  $query = "UPDATE blog SET judul='$judul', sub_judul='$sub', tipe='$tipe', deskripsi='$desk', gambar='$gambar' WHERE id='$id'";
+
+  mysqli_query($conn, $query);
+  return mysqli_affected_rows($conn);
+}
+
 function upload()
 {
   $namaFile = $_FILES["gambar"]["name"];
@@ -90,7 +129,7 @@ function upload()
 
   /* lolos pengecekan, gambar siap diupload */
   $encNamaFile = uniqid() . '.' . $formatFile; // ubah nama file menjadi nama acak
-  move_uploaded_file($tmpName, 'upload/' . $encNamaFile);
+  move_uploaded_file($tmpName, '../../upload/' . $encNamaFile);
   return $encNamaFile;
 }
 
@@ -115,8 +154,9 @@ function login($data)
 
       /* Buat Session baru */
       $_SESSION["login"] = true;
+      $_SESSION["nama"] = $encPW["nama"];
 
-      echo "<script>alert('Selamat Datang ^_^'); document.location.href='tambah-blog.php';</script>";
+      echo "<script>alert('Selamat Datang ^_^'); window.location.href='dashboard/index.php';</script>";
     }
     echo "<script> let alertG = document.getElementById('gagal'); alertG.style.display = 'block';</script>";
   }
