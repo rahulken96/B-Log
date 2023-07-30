@@ -8,10 +8,11 @@ if (!isset($_SESSION["login"])) {
 /* akhir cek */
 
 if (isset($_POST["ubah"])) {
+  
   if (ubah($_POST) > 0) {
     echo "<script>alert('Data Berhasil Diubah!'); document.location.href = '../blog.php';</script>";
   } else {
-    echo "<script>alert('Gagal Diubah!')</script>";
+    echo "<script>alert('Data Gagal Diubah!'); history.back()</script>";
   }
 }
 
@@ -26,7 +27,7 @@ $kategori = query("SELECT * FROM kategori");
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Ubah Blog | VSGA Project</title>
+  <title>Ubah Postingan Blog | VSGA Project</title>
 
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3" />
   <link href="../../assets/css/bootstrap.min.css" rel="stylesheet" />
@@ -233,6 +234,7 @@ $kategori = query("SELECT * FROM kategori");
           <form class="row g-3" action="" method="post" enctype="multipart/form-data">
             <input type="hidden" name="id" value="<?= $blog[0]['id'] ?>">
             <input type="hidden" name="gambarLama" value="<?= $blog[0]['gambar'] ?>">
+
             <div class="col-md-6">
               <label for="judul" class="form-label">Judul Blog</label>
               <input type="text" class="form-control" placeholder="Masukkan judul" id="judul" name="judul" value="<?= $blog[0]['judul'] ?>" required />

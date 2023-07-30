@@ -5,6 +5,26 @@ if (!isset($_SESSION['login'])) {
   exit;
 }
 
+/* Tambah Data */
+if (isset($_POST["tambahKategori"])) {
+
+  if (tambah($_POST) > 0) {
+    echo "<script>alert('Data Berhasil Ditambahkan!');</script>";
+  } else {
+    echo "<script>alert('Data Gagal Ditambahkan!'); history.back();</script>";
+  }
+}
+
+/* Edit Data */
+if (isset($_POST["editKategori"])) {
+
+  if (tambah($_POST) > 0) {
+    echo "<script>alert('Data Berhasil Ditambahkan!');</script>";
+  } else {
+    echo "<script>alert('Data Gagal Ditambahkan!'); history.back();</script>";
+  }
+}
+
 $data = query("SELECT * FROM kategori");
 ?>
 
@@ -211,16 +231,16 @@ $data = query("SELECT * FROM kategori");
 
       <!-- Content -->
       <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-      <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2">
-          <a href="tambah-blog.php" class="btn btn-info btn-sm text-dark">Tambah Data</a>
+        <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2">
+          <a class="btn btn-info btn-sm" data-bs-toggle="modal" data-bs-target="#tambahData">Tambah Data</a>
         </div>
         <div class="justify-content-between align-items-center pt-3 pb-2">
           <table id="kategori" class="table table-responsive table-striped">
             <thead>
               <tr>
                 <th width="10%">No. </th>
-                <th width="80%">Nama Kategori</th>
-                <th width="10%">Aksi</th>
+                <th width="70%">Nama Kategori</th>
+                <th width="20%">Aksi</th>
               </tr>
             </thead>
             <tbody>
@@ -230,14 +250,58 @@ $data = query("SELECT * FROM kategori");
                   <td><?= $i++ ?></td>
                   <td><?= $kategori['kategori'] ?></td>
                   <td>
-                    <!-- <a class="btn btn-danger bt-sm p-2" onclick="hapus(<?= $kategori['id'] ?>)"><i class="bi bi-trash-fill"></i></a>   -->
-                    <a class="btn btn-danger bt-sm p-2" onclick="hapus(<?= $kategori['id'] ?>)"><i class="bi bi-trash-fill"></i></a>  
+                    <a href="functions/ubah-blog.php?id=<?= $blog['id'] ?>" class="btn btn-warning bt-sm p-2 m-2" data-bs-toggle="modal" data-bs-target="#editData"><i class="bi bi-pencil-square"></i> Edit</a>
+                    <a class="btn btn-danger bt-sm p-2" onclick="hapus(<?= $kategori['id'] ?>)"><i class="bi bi-trash-fill"></i> Hapus</a>
                   </td>
                 </tr>
               <?php endforeach ?>
             </tbody>
           </table>
         </div>
+
+        <!-- Modal -->
+          <!-- Tambah Data -->
+            <div class="modal fade" id="tambahData" tabindex="-1" aria-labelledby="tambahDataLabel" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Tambah Kategori Blog</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <form action="" method="post">
+                    <div class="modal-body">
+                      <input type="text" class="form-control" placeholder="Masukkan kategori" id="kategori" name="kategori" required />
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Batal</button>
+                      <button type="submit" class="btn btn-success" name="tambahKategori">Tambah</button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          <!-- Tambah Data -->
+          
+          <!-- Edit Data -->
+            <div class="modal fade" id="editData" tabindex="-1" aria-labelledby="editDataLabel" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Edit Kategori Blog</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+                    ...
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Batal</button>
+                    <button type="submit" class="btn btn-success" name="editKategori">Tambah</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          <!-- Edit Data -->
+        <!-- Modal -->
       </main>
       <!-- Content -->
     </div>
@@ -245,13 +309,12 @@ $data = query("SELECT * FROM kategori");
 
   <script src="../assets/js/color-modes.js"></script>
   <script src="../assets/js/bootstrap.bundle.min.js"></script>
-  <script src="../assets/js/dashboard.js"></script>
   <script src="../assets/js/jquery-3.7.0.js"></script>
   <script src="../assets/js/b-html5-2.4.1_datatables.min.js"></script>
   <script src="../assets/js/pdfmake.min.js"></script>
   <script src="../assets/js/pdfmake_0.2.7_vfs_fonts.js"></script>
   <script>
-    function hapus(id){
+    function hapus(id) {
       var hapus = confirm('Yakin ingin hapus data ini ?');
       if (hapus) {
         document.location.href = `functions/hapus-kategori.php?id=${id}`;

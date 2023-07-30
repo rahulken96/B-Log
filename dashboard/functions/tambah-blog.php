@@ -3,7 +3,7 @@ require '../../functions/functions.php';
 
 /* Cek session dulu */
 if (!isset($_SESSION["login"])) {
-  echo "<script>alert('Harap Masuk Terlebih Dahulu!'); document.location.href = 'login.php';</script>";
+  echo "<script>alert('Harap Masuk Terlebih Dahulu!'); document.location.href = '../../login.php';</script>";
   exit;
 }
 /* akhir cek */
@@ -13,7 +13,7 @@ if (isset($_POST["tambah"])) {
   if (tambah($_POST) > 0) {
     echo "<script>alert('Data Berhasil Ditambahkan!'); document.location.href = '../blog.php';</script>";
   } else {
-    echo "<script>alert('Gagal Ditambahkan!')</script>";
+    echo "<script>alert('Data Gagal Ditambahkan!') history.back()</script>";
   }
 }
 
@@ -26,7 +26,7 @@ $kategori = query("SELECT * FROM kategori");
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Tambah Blog | VSGA Project</title>
+  <title>Tambah Postingan Blog | VSGA Project</title>
 
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3" />
   <link href="../../assets/css/bootstrap.min.css" rel="stylesheet" />
@@ -180,7 +180,7 @@ $kategori = query("SELECT * FROM kategori");
           <div class="offcanvas-body d-md-flex flex-column p-0 pt-lg-3 overflow-y-auto">
             <ul class="nav flex-column">
               <li class="nav-item">
-                <a class="nav-link d-flex align-items-center gap-2 active" href="index.php">
+                <a class="nav-link d-flex align-items-center gap-2 active" href="../index.php">
                   <svg class="bi">
                     <use xlink:href="#house-fill" />
                   </svg>
@@ -188,7 +188,7 @@ $kategori = query("SELECT * FROM kategori");
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link d-flex align-items-center gap-2" href="blog.php">
+                <a class="nav-link d-flex align-items-center gap-2" href="../blog.php">
                   <svg class="bi">
                     <use xlink:href="#file-earmark" />
                   </svg>
@@ -196,7 +196,7 @@ $kategori = query("SELECT * FROM kategori");
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link d-flex align-items-center gap-2 active" href="kategori.php">
+                <a class="nav-link d-flex align-items-center gap-2 active" href="../kategori.php">
                   <svg class="bi">
                     <use xlink:href="#people" />
                   </svg>
