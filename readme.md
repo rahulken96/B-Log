@@ -1,6 +1,9 @@
 Judul Project     : B-Log
+
 Deskripsi Singkat : Website sederhana mengenai Blog pribadi
+
 Databse           : b_log_project
+
 Library yang digunakan :
   - Boostrap
   - Datatable
