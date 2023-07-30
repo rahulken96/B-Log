@@ -18,6 +18,9 @@ if (isset($_POST["tambah"])) {
 }
 
 $kategori = query("SELECT * FROM kategori");
+if (empty($kategori)) {
+  echo "<script>alert('Harap Membuat Kategori Terlebih Dahulu!'); document.location.href = '../kategori.php';</script>";
+}
 ?>
 
 <!DOCTYPE html>

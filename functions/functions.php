@@ -27,27 +27,27 @@ function tambah($data)
   global $conn;
 
   /* Tambah data register */
-  if (isset($data['daftar'])) {
-    $nama  = htmlspecialchars($data["nama"]);
-    $email    = htmlspecialchars($data["email"]);
-    $noHP   = htmlspecialchars($data["noHP"]);
-    $user   = htmlspecialchars($data["username"]);
-    $pw   = htmlspecialchars($data["password"]);
+    if (isset($data['daftar'])) {
+      $nama  = htmlspecialchars($data["nama"]);
+      $email    = htmlspecialchars($data["email"]);
+      $noHP   = htmlspecialchars($data["noHP"]);
+      $user   = htmlspecialchars($data["username"]);
+      $pw   = htmlspecialchars($data["password"]);
 
-    $query = "INSERT INTO users VALUES ('', '$nama', '$email', '$noHP', '$user', '$pw')";
-    mysqli_query($conn, $query);
-    return mysqli_affected_rows($conn);
-  }
+      $query = "INSERT INTO users VALUES ('', '$nama', '$email', '$noHP', '$user', '$pw')";
+      mysqli_query($conn, $query);
+      return mysqli_affected_rows($conn);
+    }
   /* Tambah data register */
 
   /* Tambah data kategori */
-  if (isset($data['tambahKategori'])) {
-    $kategori  = htmlspecialchars($data["kategori"]);
+    if (isset($data['tambahKategori'])) {
+      $kategori  = htmlspecialchars($data["kategori"]);
 
-    $query = "INSERT INTO kategori VALUES ('', '$kategori')";
-    mysqli_query($conn, $query);
-    return mysqli_affected_rows($conn);
-  }
+      $query = "INSERT INTO kategori VALUES ('', '$kategori')";
+      mysqli_query($conn, $query);
+      return mysqli_affected_rows($conn);
+    }
   /* Tambah data kategori */
 
   $judul  = htmlspecialchars($data["judul"]);
@@ -71,23 +71,28 @@ function tambah($data)
 function ubah($data)
 {
   global $conn;
-
-  /* Tambah data register */
-  // if (isset($data['kategori'])) {
-  //   $nama  = htmlspecialchars($data["nama"]);
-  //   $email    = htmlspecialchars($data["email"]);
-  //   $noHP   = htmlspecialchars($data["noHP"]);
-  //   $user   = htmlspecialchars($data["username"]);
-  //   $pw   = htmlspecialchars($data["password"]);
-
-  //   $query = "INSERT INTO users VALUES ('', '$nama', '$email', '$noHP', '$user', '$pw')";
-
-  //   mysqli_query($conn, $query);
-  //   return mysqli_affected_rows($conn);
-  // }
-  /* Tambah data register */
-
   $id       = $data['id'];
+
+  /* Ubah data kategori */
+    if (isset($data['ubahKategori'])) {
+      $kategori  = htmlspecialchars($data["kategori"]);
+
+      /* Proses Cek data sama */
+        $dataKategori = "SELECT * FROM kategori WHERE id = '$id'";
+        $item = mysqli_query($conn, $dataKategori);
+        $oldData = mysqli_fetch_assoc($item);
+        
+        if ($item == $oldData['kategori']) {
+          return true;
+        }
+      /* Akhir Proses Cek Data Sama*/
+
+      $queryKategori = "UPDATE kategori SET kategori='$kategori' WHERE id='$id'";
+      mysqli_query($conn, $queryKategori);
+      return mysqli_affected_rows($conn);
+    }
+  /* Ubah data kategori */
+
   $judul    = htmlspecialchars($data["judul"]);
   $sub      = htmlspecialchars($data["subJudul"]);
   $tipe     = htmlspecialchars($data["tipe"]);

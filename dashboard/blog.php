@@ -239,8 +239,8 @@ $data = query("SELECT * FROM blog");
                   <td><?= $blog['tipe'] ?></td>
                   <td><?= mb_strimwidth(htmlspecialchars_decode($blog['deskripsi']), 0, 100, '...') ?></td>
                   <td>
-                    <a href="functions/ubah-blog.php?id=<?= $blog['id'] ?>" class="btn btn-warning bt-sm p-2 m-2"><i class="bi bi-pencil-square"></i> Edit</a>
-                    <a class="btn btn-danger bt-sm p-2" onclick="hapus(<?= $blog['id'] ?>)"><i class="bi bi-trash-fill"></i> Hapus</a>
+                    <a href="functions/ubah-blog.php?id=<?= $blog['id'] ?>" class="btn btn-warning btn-sm m-2"><i class="bi bi-pencil-square"></i> Edit</a>
+                    <a class="btn btn-danger btn-sm" onclick="hapus(<?= $blog['id'] ?>)"><i class="bi bi-trash-fill"></i> Hapus</a>
                   </td>
                 </tr>
               <?php endforeach ?>

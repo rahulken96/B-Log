@@ -16,9 +16,9 @@ if (isset($_POST["tambahKategori"])) {
 }
 
 /* Edit Data */
-if (isset($_POST["editKategori"])) {
+if (isset($_POST["ubahKategori"])) {
 
-  if (tambah($_POST) > 0) {
+  if (ubah($_POST) > 0) {
     echo "<script>alert('Data Berhasil Ditambahkan!');</script>";
   } else {
     echo "<script>alert('Data Gagal Ditambahkan!'); history.back();</script>";
@@ -250,8 +250,8 @@ $data = query("SELECT * FROM kategori");
                   <td><?= $i++ ?></td>
                   <td><?= $kategori['kategori'] ?></td>
                   <td>
-                    <a href="functions/ubah-blog.php?id=<?= $blog['id'] ?>" class="btn btn-warning bt-sm p-2 m-2" data-bs-toggle="modal" data-bs-target="#editData"><i class="bi bi-pencil-square"></i> Edit</a>
-                    <a class="btn btn-danger bt-sm p-2" onclick="hapus(<?= $kategori['id'] ?>)"><i class="bi bi-trash-fill"></i> Hapus</a>
+                    <a class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#editData<?= $kategori['id'] ?>"><i class="bi bi-pencil-square"></i> Edit</a>
+                    <a class="btn btn-danger btn-sm" onclick="hapus(<?= $kategori['id'] ?>)"><i class="bi bi-trash-fill"></i> Hapus</a>
                   </td>
                 </tr>
               <?php endforeach ?>
@@ -265,7 +265,7 @@ $data = query("SELECT * FROM kategori");
               <div class="modal-dialog">
                 <div class="modal-content">
                   <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">Tambah Kategori Blog</h1>
+                    <h1 class="modal-title fs-5" id="tambahDataLabel">Tambah Kategori Blog</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                   </div>
                   <form action="" method="post">
@@ -283,23 +283,28 @@ $data = query("SELECT * FROM kategori");
           <!-- Tambah Data -->
           
           <!-- Edit Data -->
-            <div class="modal fade" id="editData" tabindex="-1" aria-labelledby="editDataLabel" aria-hidden="true">
-              <div class="modal-dialog">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">Edit Kategori Blog</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                  </div>
-                  <div class="modal-body">
-                    ...
-                  </div>
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Batal</button>
-                    <button type="submit" class="btn btn-success" name="editKategori">Tambah</button>
+            <?php foreach ($data as $kategori) : ?>
+              <div class="modal fade" id="editData<?= $kategori['id'] ?>" tabindex="-1" aria-labelledby="editData<?= $kategori['id'] ?>Label" aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h1 class="modal-title fs-5" id="editData<?= $kategori['id'] ?>Label">Edit Kategori Blog</h1>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <form action="" method="post">
+                      <input type="hidden" name="id" value="<?= $kategori['id'] ?>">
+                      <div class="modal-body">
+                        <input type="text" class="form-control" placeholder="Masukkan kategori" id="kategori" name="kategori" value="<?= $kategori['kategori'] ?>" required />
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Batal</button>
+                        <button type="submit" class="btn btn-success" name="ubahKategori">Ubah</button>
+                      </div>
+                    </form>
                   </div>
                 </div>
               </div>
-            </div>
+            <?php endforeach ?>
           <!-- Edit Data -->
         <!-- Modal -->
       </main>
