@@ -185,6 +185,14 @@ $post = mysqli_fetch_assoc($totalPost);
                   Postingan Blog
                 </a>
               </li>
+              <li class="nav-item">
+                <a class="nav-link d-flex align-items-center gap-2 active" href="kategori.php">
+                  <svg class="bi">
+                    <use xlink:href="#people" />
+                  </svg>
+                  Kategori Blog
+                </a>
+              </li>
             </ul>
 
             <hr class="my-3" />

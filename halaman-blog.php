@@ -1,7 +1,12 @@
 <?php
 require 'functions/functions.php';
-$last = query("SELECT * FROM blog ORDER BY id DESC LIMIT 1");
-$item = query("SELECT * FROM blog ORDER BY id DESC");
+$id = $_GET['id'];
+
+$data = query("SELECT * FROM blog WHERE sub_judul LIKE '%$id%'")[0];
+if (!isset($data)){
+  echo "<script>alert('Harap Membuat Blog Terlebih Dahulu!'); document.location.href = 'dashboard/blog.php';</script>";
+  exit;
+}
 ?>
 
 <!DOCTYPE html>
@@ -11,7 +16,7 @@ $item = query("SELECT * FROM blog ORDER BY id DESC");
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>B-Log | VSGA Project</title>
+  <title><?= $data['judul'] ?> | VSGA Project</title>
 
   <link rel="stylesheet" href="assets/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
@@ -48,47 +53,14 @@ $item = query("SELECT * FROM blog ORDER BY id DESC");
 
   <!-- Content -->
   <div class="container mt-4">
-    <h1>Halaman Blog</h1>
-
-    <div class="card mt-4 mb-4">
-      <?php if (isset($last[0])) : ?>
-        <img src="upload/<?= $last[0]['gambar'] ?>" class="card-img-top" style="height: 500px;" alt="Headline" />
-        <div class="card-body text-center">
-          <h5 class="card-title"><?= $last[0]['judul'] ?></h5>
-          <p class="card-text">
-            <?= $last[0]['sub_judul'] ?></h5>
-          </p>
-          <p class="card-text">
-            <small class="text-body-secondary"></small>
-          </p>
-          <a href="halaman-blog.php?id=<?= $last[0]['sub_judul']?>" class="btn btn-primary">Baca Selengkapnya..</a>
-        </div>
-      <?php else : ?>
-        <div class="card-body text-center mb-5">
-          <h1>Belum Ada Postingan :D</h1>
-        </div>
-      <?php endif ?>
+    <img src="upload/<?= $data['gambar'] ?>" class="card-img-top" style="height: 500px;" alt="Headline" />
+    <div class="card-body text-left">
+      <h2 class="card-title"><?= $data['judul'] ?></h2>
+      <p class="card-text">
+        <h6><?= $data['sub_judul'] ?></h6>
+      </p>
+      <?= htmlspecialchars_decode($data['deskripsi']) ?>
     </div>
-
-    <?php for ($i = 1; $i < count($item); $i++) : ?>
-      <div class="row mb-4 pb-4">
-        <div class="col">
-          <h2><a href="halaman-blog.php?id=<?= $item[$i]['sub_judul']?>" class="text-decoration-none"><?= ucfirst($item[$i]['judul']) ?></a></h2>
-          <img src="upload/<?= $item[$i]['gambar'] ?>" alt="gambar" style="width: 10%;">
-
-          <p style="font-weight: bold;">
-            <?= $item[$i]['tipe'] ?> | <?= ucfirst($item[$i]['sub_judul']) ?></a>
-          </p>
-
-          <p>
-            <?= mb_strimwidth(htmlspecialchars_decode($item[$i]['deskripsi']), 0, 120, '<br><a href="halaman-blog.php?id=' . $item[$i]['sub_judul'] . '"><br>Baca Selengkapnya...</a>') ?>
-          </p>
-
-          <!-- <a href="halaman-blog.php?id=<?= $item[$i]['sub_judul']?>">Baca Selengkapnya...</a> -->
-        </div>
-      </div>
-      <p class="border-bottom"></p>
-    <?php endfor ?>
   </div>
   <!-- Content -->
 
